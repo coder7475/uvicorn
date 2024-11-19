@@ -1,3 +1,5 @@
+import uvicorn
+
 async def app (scope, receive, send):
     assert scope['type'] == 'http'
 
@@ -13,3 +15,7 @@ async def app (scope, receive, send):
         'type': 'http.response.body',
         'body': b'Hello, world!',
     })
+
+
+if __name__ == "__main__":
+    uvicorn.run('main:app', port=5000, log_level='info')
