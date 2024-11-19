@@ -1,4 +1,5 @@
 import uvicorn
+import asyncio
 
 async def app (scope, receive, send):
     assert scope['type'] == 'http'
@@ -16,8 +17,10 @@ async def app (scope, receive, send):
         'body': b'Hello, world!',
     })
 
-
-if __name__ == "__main__":
+async def main():
     config = uvicorn.Config('main:app', port=5000, log_level='info')
     server = uvicorn.Server(config)
-    server.run()
+    await server.serve()
+
+if __name__ == "__main__":
+    asyncio.run(main())
